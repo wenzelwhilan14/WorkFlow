@@ -1,4 +1,4 @@
-from src.config import client, TWILIO_PHONE_NUMBER
+from src.config.config_twilio import client, TWILIO_PHONE_NUMBER
 
 def send_sms(phone_number, message):
 
