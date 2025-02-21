@@ -7,10 +7,17 @@ def make_call(phone_number):
 
     try:
         call = client.calls.create(
-            twiml='<Response><Say>Hola, esta es una llamada de prueba desde Twilio.</Say></Response>',
+            twiml="""
+            <Response>
+              <Say voice="Polly.Conchita">
+              Hola, esta es una llamada de prueba desde Twilio.
+              </Say>
+            </Response>
+            """,
             to=phone_number,
             from_=TWILIO_PHONE_NUMBER
         )
         return {"success": True, "call_sid": call.sid}
     except Exception as e:
         return {"success": False, "error": str(e)}
+    
