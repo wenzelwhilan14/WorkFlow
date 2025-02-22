@@ -1,16 +1,16 @@
 
 from src.config.config_twilio import client, TWILIO_PHONE_NUMBER
 
-def make_call(phone_number):
+def make_call(phone_number,message):
 
     # Hace una llamada a un número específico usando Twilio.
 
     try:
         call = client.calls.create(
-            twiml="""
+            twiml=f"""
             <Response>
               <Say voice="Polly.Conchita">
-              Hola, esta es una llamada de prueba desde Twilio.
+              {message}
               </Say>
             </Response>
             """,

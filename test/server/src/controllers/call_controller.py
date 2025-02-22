@@ -7,9 +7,10 @@ from src.services.call_twilio import make_call
 def call():
     data = request.json
     phone_number = data.get("phone_number")
+    message = data.get("message")
 
-    if not phone_number:
+    if not phone_number or not message:
         return jsonify({"success": False, "error": "Número de teléfono requerido"}), 400
 
-    result = make_call(phone_number)
+    result = make_call(phone_number, message)
     return jsonify(result)

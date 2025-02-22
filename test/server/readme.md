@@ -38,3 +38,22 @@ REQUISITOS NECESARIOS:
 - Agregar las credenciasles de la API al archivo ".env " como variables de entorno segun el archivo "config_twilio.py".
 
 </div>
+
+### Twilio API (Call)
+
+<div style="text-align: justify;">
+
+Se utilizo la API de Twilio para enviar hacer llamadas. Sin embargo, cabe recalacar que la version gratuita de este servicio es limitada y es solo para pruebas, la version gratuita solo permite hacer llamadas a numeros verificados por Twilio como llamadas de prueba.
+
+**Nota:** Recalcamos que la version de prueba en llamada primero te contestara un voz predeterminada tienes que presionar un numero para que se ejecute o reproduzca el mensaje de tu codigo.
+
+</div>
+
+REQUISITOS NECESARIOS:
+
+<div style="text-align: justify;">
+
+- Crearse una cuenta en [twilio](https://www.twilio.com/es-mx) y registrar su numero telefonico.
+- Agregar las credenciasles de la API al archivo ".env " como variables de entorno segun el archivo "config_twilio.py".
+
+</div>
