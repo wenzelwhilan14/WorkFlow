@@ -19,6 +19,14 @@ Este es el frontend web de la aplicación de pruebas que permite interactuar con
 
 </div>
 
+### Cuentas y resgistros necesarios:
+
+<div style="text-align: justify;">
+
+- [twilio](https://www.twilio.com/es-mx) (SMS y CALL)
+
+</div>
+
 ## DESPLEGAR EL FRONDEND
 
 <div style="text-align: justify;">
