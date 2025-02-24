@@ -24,6 +24,7 @@ Este es el frontend web de la aplicación de pruebas que permite interactuar con
 <div style="text-align: justify;">
 
 - [twilio](https://www.twilio.com/es-mx) (SMS y CALL)
+- [Google cloud](https://cloud.google.com/functions) (MAPS)
 
 </div>
 
