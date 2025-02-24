@@ -131,6 +131,7 @@ function setupMap() {
 }
 
 let map, directionsRenderer, directionsService;
+let userLocation = null;
 let pickups = [];
 let markers = [];
 let userMarker, accuracyCircle;
@@ -167,19 +168,19 @@ function initMap() {
 }
 
 function updatePosition(position) {
-  const ubicacion = {
+  userLocation = {
     lat: position.coords.latitude,
     lng: position.coords.longitude,
   };
 
   if (firstPositionUpdate) {
-    map.setCenter(ubicacion);
+    map.setCenter(userLocation);
     firstPositionUpdate = false;
   }
 
   if (!userMarker) {
     userMarker = new google.maps.Marker({
-      position: ubicacion,
+      position: userLocation,
       map: map,
       icon: {
         path: google.maps.SymbolPath.CIRCLE,
@@ -198,13 +199,13 @@ function updatePosition(position) {
       fillColor: "#4285F4",
       fillOpacity: 0.2,
       map: map,
-      center: ubicacion,
+      center: userLocation,
       radius: 100,
       clickable: false,
     });
   } else {
-    userMarker.setPosition(ubicacion);
-    accuracyCircle.setCenter(ubicacion);
+    userMarker.setPosition(userLocation);
+    accuracyCircle.setCenter(userLocation);
     accuracyCircle.setRadius(100);
   }
 }
@@ -229,4 +230,66 @@ function addPickupPoint(location) {
 
   pickups.push({ lat: location.lat(), lng: location.lng() });
   markers.push(marker);
+}
+
+async function calculateRoute() {
+  const statusElement = document.getElementById("status");
+
+  if (!statusElement) {
+    console.error("❌ Error: No se encontró el elemento con id 'status'.");
+    alert("❌ Error interno: No se encontró el estado de la ruta.");
+    return;
+  }
+
+  if (pickups.length === 0) {
+    alert("⚠️ Selecciona al menos un punto de recogida.");
+    return;
+  }
+
+  statusElement.innerText = "Calculando ruta... ⏳";
+
+  try {
+    const response = await fetch("http://localhost:5000/route", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ start: userLocation, pickups }),
+    });
+
+    const data = await response.json();
+
+    if (!data.routes) throw new Error("No se encontró una ruta válida");
+
+    // 📌 Extraemos el destino optimizado de la API
+    const destination = data.optimized_destination;
+
+    if (!destination || !destination.lat || !destination.lng) {
+      console.error("❌ Error: El destino no está definido correctamente.");
+      alert("Error: El destino no es válido.");
+      return;
+    }
+
+    const directionsRequest = {
+      origin: new google.maps.LatLng(userLocation.lat, userLocation.lng),
+      destination: new google.maps.LatLng(destination.lat, destination.lng),
+      waypoints: pickups.map((p) => ({
+        location: new google.maps.LatLng(p.lat, p.lng),
+        stopover: true,
+      })),
+      optimizeWaypoints: true,
+      travelMode: google.maps.TravelMode.DRIVING,
+    };
+
+    directionsService.route(directionsRequest, (result, status) => {
+      if (status === google.maps.DirectionsStatus.OK) {
+        directionsRenderer.setDirections(result);
+        statusElement.innerText = "¡Ruta optimizada correctamente! ✅";
+      } else {
+        statusElement.innerText = "Error en la API de Google Maps ❌";
+        console.error("Error en la API de Google Maps:", status);
+      }
+    });
+  } catch (error) {
+    console.error("Error:", error);
+    statusElement.innerText = "❌ Error al calcular la ruta.";
+  }
 }
