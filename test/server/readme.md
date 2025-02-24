@@ -64,7 +64,26 @@ REQUISITOS NECESARIOS:
 
 Se utilizo la API de Google Google para poder visualizar el mapa. Sin embargo, cabe recalacar que al entrar a la pagina desde tu navegador en una computadora existe la probabilidad de que no tengas acceso o tu ubicacion salga erronea debido a la API de tu internet y configuraciones de tu computador.
 
-**Nota:** Recalcamos que para la prueba gratuita se tiene que registrar una tarjeta con un valor equivalente a 5 dolares en tu moneda local, se consumira par de dicho valor para la verificacion pero posteriormente se hara la devolucion del monto.
+**Nota:** Recalcamos que para la prueba gratuita se tiene que registrar una tarjeta con un valor equivalente a 5 dolares en tu moneda local, se consumira par de dicho valor para la verificacion pero posteriormente se hara la devolucion del monto. Tambien recalcamos que para que aplicacion funcione tiene que habilitarse la API "Maps JavaScript API "
+
+</div>
+
+REQUISITOS NECESARIOS:
+
+<div style="text-align: justify;">
+
+- Crearse una cuenta en [Google cloud](https://cloud.google.com/functions) y registrar un tarjeta para poder entrar a la prueba gratuita.
+- Agregar las credenciasles de la API al archivo ".env " como variables de entorno segun el archivo "config_google.py".
+
+</div>
+
+### Google Maps API (ROUTE OPTIMIZE)
+
+<div style="text-align: justify;">
+
+Se utilizo la API de Google Google para optimizar la ruta y mostrarlo en el mapa. Sin embargo, cabe recalacar que la version de prueba solo permite un maximo de 10 punto para optimizar la ruta. Tambien mencionamos que sin importar el resgistro de los puntos en mapa la API buscara la mejor ruta.
+
+**Nota:** Recalcamos que para la prueba gratuita se tiene que registrar una tarjeta con un valor equivalente a 5 dolares en tu moneda local, se consumira par de dicho valor para la verificacion pero posteriormente se hara la devolucion del monto. Tambien recalcamos que para que aplicacion funcione tiene que habilitarse la API "Directions API"
 
 </div>
 
